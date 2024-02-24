@@ -61,14 +61,14 @@ router.post('/login', [
     body("username", "Enter valid username").isAlphanumeric().isLength({ min: 5 }),
     body("password", "Please enter correct password").exists()
 ], async (req, res) => {
-
-    // check user input are correct or not
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ error: "Please enter valid username or password!" })
-    }
-
     try {
+        let success = false;
+        // check user input are correct or not
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ error: "Please enter valid username or password!" })
+        }
+
         // destructing username and password tfrom request
         const { username, password } = req.body;
         const user = await User.findOne({ username })
@@ -89,10 +89,11 @@ router.post('/login', [
             }
         }
         const authToken = jwt.sign(data, JWT_TOKEN);
-        res.json({ authToken });
+        success = true
+        res.json({ success, authToken });
     } catch (error) {
         console.error(error)
-        res.json({ error: "Some error occured" })
+        res.json({ success, error: "Some error occured" })
     }
 
 })

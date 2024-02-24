@@ -34,7 +34,6 @@ export default function Notes() {
         <>
             <AddNotes />
             <button type="button" ref={ref} className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                Launch static backdrop modal
             </button>
 
             <div className="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabIndex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -48,20 +47,21 @@ export default function Notes() {
                             <div className="container">
                                 <div className="mb-3">
                                     <label htmlFor="etitle" className="form-label">Enter title</label>
-                                    <input type="text" className="form-control" value={note.etitle} id="etitle" name='etitle' placeholder="Enter title" onChange={onChange} />
+                                    <input type="text" className="form-control" minLength={3} required value={note.etitle} id="etitle" name='etitle' placeholder="Enter title" onChange={onChange} />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="edescription" className="form-label">Example textarea</label>
-                                    <textarea className="form-control" value={note.edescription} id="edescription" name='edescription' rows="4" style={{ resize: 'none' }} onChange={onChange}></textarea>
+                                    <label htmlFor="edescription" className="form-label">Enter Description</label>
+                                    <textarea className="form-control" minLength={5} required value={note.edescription} id="edescription" name='edescription' rows="4" style={{ resize: 'none' }} onChange={onChange}></textarea>
                                 </div>
                                 <div className="mb-3">
-                                    <input type="text" className="form-control" value={note.etag} id="etag" name='etag' placeholder="Enter tag" onChange={onChange} />
+                                    <label htmlFor="etag" className="form-label">Enter Tag</label>
+                                    <input type="text" className="form-control" required value={note.etag} id="etag" name='etag' placeholder="Enter tag" onChange={onChange} />
                                 </div>
                             </div>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" ref={refClose} data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={handlerClick}>Update Note</button>
+                            <button disabled={note.etitle.length < 3 || note.edescription.length < 5} type="button" className="btn btn-primary" onClick={handlerClick}>Update Note</button>
                         </div>
                     </div>
                 </div>

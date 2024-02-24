@@ -10,8 +10,9 @@ export default function About() {
   // }, []);
   return (
     <>
-      This is About {a.state.name} and i am in class {a.state.class}
-      <button type="button" onClick={a.update}>change name</button>
+      {/* This is About {a.state.name} and i am in class {a.state.class}
+      <button type="button" onClick={a.update}>change name</button> */}
+      This is about page
     </>
   )
 }
