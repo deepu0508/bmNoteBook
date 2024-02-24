@@ -7,20 +7,19 @@ const Notes = require("../models/Notes")
 // Router 1: Get all the Notes using GET: /api/notes/fetchallnotes
 router.get('/fetchallnotes', fetchUser, async (req, res) => {
     try {
-
+        const notes = await Notes.find({ user: req.user.id });
+        res.json(notes)
     } catch (error) {
         console.error(error)
         res.status(401).json({ error: "Internal Server Error" })
     }
-    const notes = await Notes.find({ user: req.user.id });
-    res.json(notes)
 })
 
 
 // Router 2: Add Note using POST : /api/notes/addnote
 router.post('/addnote', fetchUser, [
-    body("title", "Enter valid Title").isLength({ min: 3 }),
-    body("description", "Description must be 5 characters").isLength({ min: 5 })
+    body("title", "Enter valid Title").isLength({ min: 3 }).notEmpty(),
+    body("description", "Description must be 5 characters").isLength({ min: 3 }).notEmpty()
 ], async (req, res) => {
 
     try {
@@ -30,15 +29,12 @@ router.post('/addnote', fetchUser, [
         // Check all inputs are correct or not
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            res.status(401).json({ error: "Please enter all information" });
+            return res.status(400).json({ error: "Please enter all information" });
         }
-
         const note = new Notes({
             title, description, tag, user: req.user.id
         })
-
         const saveNote = await note.save();
-
         res.json({ saveNote });
     } catch (error) {
         console.error(error)
@@ -75,7 +71,7 @@ router.put("/updatenote/:id", fetchUser, async (req, res) => {
         note = await Notes.findByIdAndUpdate(req.params.id, { $set: newNote }, { new: true });
         res.json(note);
     } catch (error) {
-        console.error(object);
+        console.error(error);
         res.send("Internal Server Error");
     }
 
