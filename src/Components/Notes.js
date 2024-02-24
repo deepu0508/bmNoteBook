@@ -28,12 +28,6 @@ export default function Notes() {
     }
 
     const onChange = (e) => {
-        if (note.etitle.length < 3 || note.edescription < 5) {
-            setTimeout(() => {
-                setAlert(null);
-            }, 3000);
-            setAlert(true);
-        }
         setNote({ ...note, [e.target.name]: e.target.value })
     }
     return (
