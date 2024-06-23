@@ -2,13 +2,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Playwrite+NO:wght@100..400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
 
-body::-webkit-scrollbar{
+body::-webkit-scrollbar {
   background: transparent;
   display: none;
 }
-body::-webkit-scrollbar-thumb{
-  background:transparent;
+
+body::-webkit-scrollbar-thumb {
+  background: transparent;
 }
+
 .myNavbar {
   top: 0.1rem;
 }
@@ -393,6 +395,7 @@ body {
 .sgn-btn {
   text-align: center;
   font-size: 22px;
+  width: 100%;
 }
 
 .sgn-userinp {
@@ -522,12 +525,12 @@ textarea {
     clip-path: circle(8% at 80% 10%);
     opacity: 0.5;
   }
-  
+
   50% {
     clip-path: circle(10% at 80% 10%);
     opacity: 1;
   }
-  
+
   100% {
     clip-path: circle(8% at 80% 10%);
     opacity: 0.5;
@@ -547,6 +550,7 @@ textarea {
     clip-path: circle(15% at 2% 100%);
   }
 }
+
 @keyframes textMove {
   0% {
     transform: rotateX(0deg);
@@ -651,6 +655,10 @@ textarea {
 
   .bgContainer {
     width: 700px;
+  }
+
+  .signUpImg {
+    margin-bottom: 20px;
   }
 
   .col-md-3 {
@@ -777,5 +785,13 @@ textarea {
 
   .inp {
     width: 330px;
+  }
+
+  .wlm {
+    font-size: 23px;
+  }
+
+  .mainlgnHeading {
+    font-size: 38px;
   }
 }
