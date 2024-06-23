@@ -16,14 +16,38 @@ const NoteState = (props) => {
                 method: 'GET',
                 headers: {
                     'Content-Type': "application/json",
-                    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVkMGU0MDQ0MDJmNDhhYmNlZjBmYTM2In0sImlhdCI6MTcwODE5MTkxNH0.--SwgLYKZOVNjxQNrrc1eQIALveT--TDsi1D6uTKRwk'
+                    'auth-token': sessionStorage.getItem("authtoken")
                 }
             })
             const data = await response.json();
             setNotes(data)
+
         } catch (error) {
             console.error(error)
         }
+    }
+
+    // Custom Notes Fetch
+    const getCustomNote = async (tag) => {
+        try {
+            const response = await fetch(`${host}/api/notes/fetchallnotes`, {
+                method: "GET",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": sessionStorage.getItem("authtoken")
+                }
+            })
+            const data = await response.json();
+            setNotes({})
+            for (let i in data) {
+                if (data[i].tag === tag) {
+                    setNotes(notes.concat(data))
+                }
+            }
+        } catch (error) {
+
+        }
+        console.log(notes);
     }
 
     // Add new note
@@ -34,7 +58,7 @@ const NoteState = (props) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVkMGU0MDQ0MDJmNDhhYmNlZjBmYTM2In0sImlhdCI6MTcwODE5MTkxNH0.--SwgLYKZOVNjxQNrrc1eQIALveT--TDsi1D6uTKRwk"
+                    "auth-token": sessionStorage.getItem("authtoken")
                 },
                 body: JSON.stringify({ title, description, tag })
             })
@@ -54,7 +78,7 @@ const NoteState = (props) => {
                 method: "DELETE",
                 headers: {
                     'Content-Type': "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVkMGU0MDQ0MDJmNDhhYmNlZjBmYTM2In0sImlhdCI6MTcwODE5MTkxNH0.--SwgLYKZOVNjxQNrrc1eQIALveT--TDsi1D6uTKRwk"
+                    "auth-token": sessionStorage.getItem("authtoken")
                 }
             })
             await response.json()
@@ -73,7 +97,7 @@ const NoteState = (props) => {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjVkMGU0MDQ0MDJmNDhhYmNlZjBmYTM2In0sImlhdCI6MTcwODE5MTkxNH0.--SwgLYKZOVNjxQNrrc1eQIALveT--TDsi1D6uTKRwk'
+                    'auth-token': sessionStorage.getItem("authtoken")
                 },
                 body: JSON.stringify({ title, description, tag })
             })
@@ -98,8 +122,18 @@ const NoteState = (props) => {
         }
     }
 
+    const collapse = async() => {
+        let icon = document.getElementById("btn-collapse");
+        let content = document.getElementById("navbarSupportedContent");
+
+        if (!icon.classList.contains("collapsed")) {
+            icon.classList.add("collapsed")
+            content.classList.remove("show")
+        }
+    }
+
     return (
-        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, updateNote, getNotes }} >
+        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, updateNote, getNotes, collapse,getCustomNote }} >
             {props.children}
         </NoteContext.Provider >
     )

@@ -15,19 +15,19 @@ router.post('/createuser', [
     body('email', 'Enter valid email address').isEmail(),
     body('password', 'Password must be 8 characters').isLength({ min: 8 })
 ], async (req, res) => {
-
-    // Error handle user to give coorect information or not
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
-
     // for random error catch
     try {
+        let success = false;
+        // Error handle user to give coorect information or not
+        const errors = validationResult(req);
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         // Search in Database for finding user already exists or not
-        let user = await User.findOne({ email: req.body.email, username: req.body.username });
+        let user = await User.findOne({ success, email: req.body.email, username: req.body.username });
         if (user) {
-            return res.status(400).json({ errors: "Sorry a user with email is already exists" })
+            return res.status(400).json({ success, errors: "Sorry a user with email is already exists" })
         }
 
         // Ecrypting Password
@@ -48,10 +48,11 @@ router.post('/createuser', [
             }
         }
         const authToken = jwt.sign(data, JWT_TOKEN);
-        res.json({ authToken });
+        success = true;
+        res.json({ success, authToken });
     } catch (err) {
         console.error(err.message);
-        res.status(400).json({ errors: "Some error occured" })
+        res.status(400).json({ success, errors: "Some error occured" })
     }
 
 })
@@ -66,14 +67,14 @@ router.post('/login', [
         // check user input are correct or not
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            return res.status(400).json({ error: "Please enter valid username or password!" })
+            return res.status(400).json({ success, error: "Please enter valid username or password!" })
         }
 
         // destructing username and password tfrom request
         const { username, password } = req.body;
         const user = await User.findOne({ username })
         if (!user) {
-            return res.status(400).json({ error: "Please enter correct username" });
+            return res.status(400).json({ success, error: "Please enter correct username" });
         }
 
         // check password are correct or not through decoding

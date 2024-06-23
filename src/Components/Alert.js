@@ -1,11 +1,14 @@
 import React from 'react'
 
 export default function Alert(props) {
+    const {alert} = props
     return (
         <>
-            {props.alert.check && <div className="alert alert-success alert-dismissible fade show" role="alert">
-                {props.alert.mess}
+        <div className="container alt mt-2">
+            {alert && <div className={` alert alert-${alert.type} alert-dismissible fade show`} role="alert">
+                {alert.mess}
             </div>}
+        </div>
         </>
     )
 }

@@ -1,17 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Notes from './Notes'
+import MenuSidebar from './MenuSidebar'
+import noteContext from '../Context/Notes/noteContext'
 
 
 export default function Home() {
+  const context = useContext(noteContext)
+  const {collapse} = context
   return (
     <>
-      <div className="container">
-        {/* <AddNotes/> */}
-          
-          <div className="">
-            <Notes />
-          </div>
+      <div className="container d-flex bmAddNote" onClick={collapse}>
+        <div className="part1 part" key={"menu"}>
+          <MenuSidebar />
         </div>
+        <div className="part2 part" key={"notes"}>
+          <Notes />
+        </div>
+      </div>
     </>
   )
 }

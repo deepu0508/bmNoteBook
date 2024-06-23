@@ -11,7 +11,6 @@ app.use(cors())
 app.use(express.json())
 
 app.get('/', (req, res) => {
-    res.setHeader('X-Foo', 'bar')
     res.send("Hello Deepu ")
 })
 
