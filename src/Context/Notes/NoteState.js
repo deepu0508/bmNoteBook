@@ -38,16 +38,17 @@ const NoteState = (props) => {
                 }
             })
             const data = await response.json();
-            setNotes({})
+            setNotes([])
+            console.log(notes)
             for (let i in data) {
                 if (data[i].tag === tag) {
                     setNotes(notes.concat(data))
                 }
             }
+            console.log(notes);
         } catch (error) {
 
         }
-        console.log(notes);
     }
 
     // Add new note
@@ -122,7 +123,7 @@ const NoteState = (props) => {
         }
     }
 
-    const collapse = async() => {
+    const collapse = async () => {
         let icon = document.getElementById("btn-collapse");
         let content = document.getElementById("navbarSupportedContent");
 
@@ -133,7 +134,7 @@ const NoteState = (props) => {
     }
 
     return (
-        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, updateNote, getNotes, collapse,getCustomNote }} >
+        <NoteContext.Provider value={{ notes, setNotes, addNote, deleteNote, updateNote, getNotes, collapse, getCustomNote }} >
             {props.children}
         </NoteContext.Provider >
     )

@@ -6,7 +6,7 @@ import About from './Components/About';
 import NoteState from './Context/Notes/NoteState';
 import Login from './Components/Login';
 import Sign from './Components/Sign';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Alert from './Components/Alert';
 import AddNotes from './Components/AddNotes';
 import Contact from './Components/Contact';
@@ -20,6 +20,8 @@ function App() {
     }, 2000);
     setAlert({ type, mess });
   }
+
+  // useEffect(()=>console.clear())
   return (
     <>
       <NoteState>
@@ -30,7 +32,7 @@ function App() {
               <Routes>
                 <Route exact path='/' element={<Home />} />
                 <Route exact path='/about' element={<About />} />
-                <Route exact path='/contact' element={<Contact />} />
+                <Route exact path='/contact' element={<Contact showAlert={showAlert}/>} />
                 <Route exact path='/addNote' element={<AddNotes showAlert={showAlert} />} />
                 <Route exact path='/login' element={<Login showAlert={showAlert} />} />
                 <Route exact path='/signup' element={<Sign showAlert={showAlert} />} />

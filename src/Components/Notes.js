@@ -74,7 +74,7 @@ export default function Notes() {
                                     </div>
                                     <div className="mb-3">
                                         {/* <label htmlFor="edescription" className="form-label">Enter Description</label> */}
-                                        <textarea className="form-control" minLength={5} required value={note.edescription} id="edescription" name='edescription' rows="4" style={{ resize: 'none' }} onChange={onChange}></textarea>
+                                        <textarea className="form-control" minLength={5} required value={note.edescription} id="edescription" name='edescription' rows="10" cols="130" style={{ resize: 'none' }} onChange={onChange}></textarea>
                                     </div>
                                     <div className="mb-3">
                                         {/* <label htmlFor="etag" className="form-label">Enter Tag</label> */}

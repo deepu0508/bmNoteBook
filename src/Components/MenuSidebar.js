@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 export default function MenuSidebar() {
     const context = useContext(noteContext)
-    const { notes, getNotes } = context
+    const { notes, getNotes,getCustomNote } = context
     const arr = [];
     notes.map((note) => { arr.push(note.tag) })
     // console.log(arr)
@@ -37,7 +37,7 @@ export default function MenuSidebar() {
                     <Link key={'hello'} className='list-group-item list-group-item-action listItem bmList addNote-option' to="/addNote">Add Note</Link>
                     <a href="#" key={'list'} className="list-group-item list-group-item-action listItem bmList">List of Your Notes tag</a>
                     {newArr.map((note) => {
-                        return <a href="#" key={note+1} className="list-group-item list-group-item-action listItem">{note}</a>
+                        return <a href="#" key={note+1} className="list-group-item list-group-item-action listItem" onClick={()=>getCustomNote(note)}>{note}</a>
                     })}
                 </div>
             </div>
