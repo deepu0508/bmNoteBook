@@ -7,7 +7,13 @@ connectToMongo();
 
 const app = express();
 const port = 6700
-app.use(cors())
+// app.use(cors())
+// For Deploy
+app.use(cors({
+    origin: "bm-note-book",
+    methods: ["POST", "GET"],
+    credentials: true
+}))
 app.use(express.json())
 
 app.get('/', (req, res) => {

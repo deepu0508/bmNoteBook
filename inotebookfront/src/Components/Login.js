@@ -35,21 +35,6 @@ export default function Login(props) {
     }
     return (
         <>
-            {/* <div className="container mt-4">
-                <h1 className="text-center">Login</h1>
-                <form onSubmit={handlerForm}>
-                    <div className="mb-3">
-                        <label htmlFor="username" className="form-label">Username</label>
-                        <input type="text" className="form-control" id="username" onChange={onChange} value={crediantial.username} required name='username' aria-describedby="usernameHelp" />
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="password" className="form-label">Password</label>
-                        <input type="password" className="form-control" onChange={onChange} value={crediantial.password} required name='password' id="password" />
-                    </div>
-                    <button disabled={crediantial.username.length < 1 || crediantial.password.length < 1} type="submit" className="btn btn-primary">Submit</button>
-                </form>
-            </div> */}
-
             <div className="df loginPart">
                 <div className="df loginImg" id="loginImg">
                     <img src="" alt="" />
@@ -79,7 +64,7 @@ export default function Login(props) {
                                     <label htmlFor="password">Enter Password</label>
                                     <input type="password" required minLength="8" onChange={onChange} value={crediantial.password} name='password' id="password" className="userinp" placeholder="Enter password" />
                                 </div>
-                                <div className="forgot"><a href="#">Forgot username and password</a></div>
+                                {/* <div className="forgot"><a href="#">Forgot username and password</a></div> */}
                             </div>
                             <div className="lgnbtn-pry cls-btn ">
                                 <button disabled={crediantial.username.length < 1 || crediantial.password.length < 1} type="submit" className="lgnbtn">Login</button>

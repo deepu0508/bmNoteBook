@@ -57,7 +57,7 @@ router.post('/createuser', [
 
 })
 
-// Router 2: Log in User wiht authentication usig POST:/api/auth/login
+// Router 2: Log in User with authentication usig POST:/api/auth/login
 router.post('/login', [
     body("username", "Enter valid username").isAlphanumeric().isLength({ min: 5 }),
     body("password", "Please enter correct password").exists()
